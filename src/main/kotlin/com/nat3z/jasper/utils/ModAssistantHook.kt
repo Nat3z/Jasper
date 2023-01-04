@@ -170,37 +170,48 @@ object ModAssistantHook {
                 }
             }
             /* not in list of no pre-release */
-            if (willDownload.get())
-                if (res.asJsonArray().get(1).asJsonObject.get("prerelease").asBoolean && downloadURL == res.asJsonArray().get(1).getAsJsonObject().get("assets").getAsJsonArray().get(0).getAsJsonObject().get("browser_download_url").getAsString()) {
-                    /* pre-release ui */
-                    val maker = FrameMaker("Pre-Release update found.", Dimension(350, 150), WindowConstants.DO_NOTHING_ON_CLOSE, false)
-                    val suc = AtomicBoolean(false)
+            if (willDownload.get()) {
+                if (res.asJsonArray().size() > 0)
+                    if (res.asJsonArray()
+                            .get(1).asJsonObject.get("prerelease").asBoolean && downloadURL == res.asJsonArray().get(1)
+                            .getAsJsonObject().get("assets").getAsJsonArray().get(0).getAsJsonObject()
+                            .get("browser_download_url").getAsString()
+                    ) {
+                        /* pre-release ui */
+                        val maker = FrameMaker(
+                            "Pre-Release update found.",
+                            Dimension(350, 150),
+                            WindowConstants.DO_NOTHING_ON_CLOSE,
+                            false
+                        )
+                        val suc = AtomicBoolean(false)
 
-                    val frame = maker.pack()
-                    maker.addText("A pre-release update for $filename is available.", 10, 10, 11, false)
-                    maker.addText("Would you like to download this update?", 40, 30, 15, false)
+                        val frame = maker.pack()
+                        maker.addText("A pre-release update for $filename is available.", 10, 10, 11, false)
+                        maker.addText("Would you like to download this update?", 40, 30, 15, false)
 
-                    val skipUpdate = maker.addButton("Skip", 50, 70, 100, ActionListener { e ->
-                        suc.set(true)
-                        willDownload.set(false)
-                        frame.dispose()
-                    })
-                    val downloadUpdate = maker.addButton("Download", 180, 70, 100, ActionListener { e ->
-                        suc.set(true)
-                        willDownload.set(true)
-                        frame.dispose()
-                    })
-                    maker.override()
-                    /* keep it from continuing */
-                    while (!suc.get()) {
-                        try {
-                            TimeUnit.SECONDS.sleep(1)
-                        } catch (e: InterruptedException) {
-                            e.printStackTrace()
+                        val skipUpdate = maker.addButton("Skip", 50, 70, 100, ActionListener { e ->
+                            suc.set(true)
+                            willDownload.set(false)
+                            frame.dispose()
+                        })
+                        val downloadUpdate = maker.addButton("Download", 180, 70, 100, ActionListener { e ->
+                            suc.set(true)
+                            willDownload.set(true)
+                            frame.dispose()
+                        })
+                        maker.override()
+                        /* keep it from continuing */
+                        while (!suc.get()) {
+                            try {
+                                TimeUnit.SECONDS.sleep(1)
+                            } catch (e: InterruptedException) {
+                                e.printStackTrace()
+                            }
+
                         }
-
                     }
-                }
+            }
         }
         if (!willDownload.get()) {
             if (!optOutPreRelease.exists()) {

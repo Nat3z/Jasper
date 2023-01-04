@@ -25,7 +25,7 @@ class JasperMod {
         var mc = Minecraft.getMinecraft()
         var guiScreen: GuiScreen? = null
         const val MODID = "jasper"
-        const val VERSION = "1.0.0"
+        const val VERSION = "0.2"
     }
 
     @Mod.EventHandler
