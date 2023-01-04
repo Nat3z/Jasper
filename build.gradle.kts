@@ -82,6 +82,9 @@ dependencies {
     shadowImpl("gg.essential:loader-launchwrapper:1.1.3") {
         isTransitive = false
     }
+
+    shadowImpl(fileTree("libs/BlendingMC.jar"))
+
     implementation("gg.essential:essential-1.8.9-forge:11092+gecb85a783")
 
 }
@@ -122,6 +125,7 @@ val remapJar by tasks.named<RemapJarTask>("remapJar") {
 tasks.shadowJar {
     archiveClassifier.set("all-dev")
     configurations = listOf(shadowImpl)
+
     // If you want to include other dependencies and shadow them, you can relocate them in here
     // relocate("gg.essential.vigilance", "com.nat3z.jasper.vigilance")
     // relocate("gg.essential.elementa", "com.nat3z.jasper.elementa")

@@ -98,4 +98,8 @@ object SkyUtils {
 
             return lines
         }
+
+    fun String.toChat(): ChatComponentText {
+        return ChatComponentText(this)
+    }
 }

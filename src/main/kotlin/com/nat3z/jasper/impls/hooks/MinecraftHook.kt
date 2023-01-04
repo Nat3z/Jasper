@@ -78,7 +78,7 @@ object MinecraftHook {
                     SkyUtils.preparedupdate = true
                     updatePreperations = arrayOf<Any?>("https://api.github.com/repos/Nat3z/Jasper/releases", downloadURL, finalModsFolder, updateAs, updateAs, hashID)
                 }
-            } else if (JasperMod.VERSION != res.asJsonArray().get(1).getAsJsonObject().get("tag_name").getAsString() && res.asJsonArray().get(1).getAsJsonObject().get("prerelease").asBoolean) {
+            } else if (res.asJsonArray().size() > 1 && JasperMod.VERSION != res.asJsonArray().get(1).getAsJsonObject().get("tag_name").getAsString() && res.asJsonArray().get(1).getAsJsonObject().get("prerelease").asBoolean) {
                 /* update that mod! */
                 JasperMod.LOGGER.info("Applying update to Jasper...")
                 fetch("https://api.github.com/repos/Nat3z/Jasper/releases") { res1 ->

@@ -1,5 +1,6 @@
 package com.nat3z.jasper.gui
 
+import cc.blendingMC.vicious.BlendingHUDEditor
 import com.nat3z.jasper.JasperMod
 import gg.essential.api.EssentialAPI
 import gg.essential.api.utils.GuiUtil
@@ -32,7 +33,16 @@ class JasperGeneralGui : WindowScreen(ElementaVersion.V2, newGuiScale = Essentia
             GuiUtil.open(JasperMod.config.gui())
         }
 
-        UIText("Made by Nat3zDev, Powered by Essential and Vicious").childOf(window).constrain {
+        GeneralButton("Edit Gui Locations").childOf(window).constrain {
+            x = basicXConstraint { (window.getWidth() - this.getWidth()) - 3 }
+            y = basicYConstraint { window.getHeight() - this.getHeight() - 20 }
+            width = 200.pixels()
+            height = 20.pixels()
+        }.onMouseClick {
+            JasperMod.guiScreen = BlendingHUDEditor(JasperMod.hudPlacement)
+        }
+
+        UIText("Made by Nat3zDev, Powered by Essential, Vicious, and BlendingMC").childOf(window).constrain {
             x = CenterConstraint()
             y = basicYConstraint { window.getHeight() - this.getHeight() - 5 }
         }
