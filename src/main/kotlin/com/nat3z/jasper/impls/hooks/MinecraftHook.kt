@@ -4,7 +4,6 @@ package com.nat3z.jasper.impls.hooks
 import com.nat3z.jasper.JasperMod
 import com.nat3z.jasper.utils.*
 import com.nat3z.jasper.utils.WebUtils.fetch
-import net.minecraft.client.main.GameConfiguration
 import net.minecraftforge.fml.common.FMLCommonHandler
 import org.lwjgl.opengl.Display
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
@@ -22,12 +21,12 @@ import javax.swing.WindowConstants
 object MinecraftHook {
     private var updatePreperations = arrayOfNulls<Any>(5)
 
-    fun checkUpdates(gameConfig: GameConfiguration, ci: CallbackInfo) {
-        val viciousFolder = File(gameConfig.folderInfo.mcDataDir.absolutePath + "\\vicious\\")
+    fun checkUpdates(ci: CallbackInfo) {
+        val viciousFolder = File(".\\vicious\\")
         if (!viciousFolder.exists()) {
             viciousFolder.mkdir()
         }
-        val viciousUpdateCycle = File(gameConfig.folderInfo.mcDataDir.absolutePath + "\\vicious\\updater.jar")
+        val viciousUpdateCycle = File(".\\vicious\\updater.jar")
         /* if not downloaded, download vicious updater */
         fetch("https://api.github.com/repos/Nat3z/ModAssistant/releases/latest") { res ->
             val downloadURL = res.asJson().get("assets").getAsJsonArray().get(0).getAsJsonObject().get("browser_download_url").getAsString()
@@ -42,8 +41,8 @@ object MinecraftHook {
 
             }
         }
-        var modsFolder = File(gameConfig.folderInfo.mcDataDir.absolutePath + "\\mods\\")
-        val subMods = File(gameConfig.folderInfo.mcDataDir.absolutePath + "\\mods\\1.8.9\\")
+        var modsFolder = File(".\\mods\\")
+        val subMods = File(".\\mods\\1.8.9\\")
 
         if (subMods.exists()) {
             modsFolder = subMods

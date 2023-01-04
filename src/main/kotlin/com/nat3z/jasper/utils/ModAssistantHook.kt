@@ -171,7 +171,7 @@ object ModAssistantHook {
             }
             /* not in list of no pre-release */
             if (willDownload.get()) {
-                if (res.asJsonArray().size() > 0)
+                if (res.asJsonArray().size() > 1)
                     if (res.asJsonArray()
                             .get(1).asJsonObject.get("prerelease").asBoolean && downloadURL == res.asJsonArray().get(1)
                             .getAsJsonObject().get("assets").getAsJsonArray().get(0).getAsJsonObject()
