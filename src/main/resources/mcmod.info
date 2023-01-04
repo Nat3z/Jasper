@@ -1,0 +1,18 @@
+[
+  {
+	"modid": "jasper",
+	"name": "Jasper",
+	"description": "Jasper is a Hypixel Skyblock mod made to give people obscure and specialized features for the most optimized Skyblock experience.",
+	"version": "1.0.0",
+	"mcversion": "1.8.9",
+	"url": "https://github.com/romangraef/Forge1.8.9Template/",
+	"updateUrl": "",
+	"authorList": [
+	  "You"
+	],
+	"credits": "",
+	"logoFile": "",
+	"screenshots": [],
+	"dependencies": []
+  }
+]
