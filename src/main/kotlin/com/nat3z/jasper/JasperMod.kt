@@ -4,8 +4,12 @@ import cc.blendingMC.commands.BlendingCommandHandler
 import com.nat3z.jasper.commands.JasperCommand
 import com.nat3z.jasper.config.JasperConfig
 import com.nat3z.jasper.config.JasperConfigBlend
+import com.nat3z.jasper.gui.UpdateFoundGui
 import com.nat3z.jasper.impls.hooks.EventHandler
+import com.nat3z.jasper.impls.hooks.MinecraftHook
+import com.nat3z.jasper.utils.SkyUtils
 import gg.blendingMC.BlendingMC
+import gg.essential.api.utils.GuiUtil
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
 import net.minecraftforge.common.MinecraftForge
@@ -23,16 +27,19 @@ class JasperMod {
         val config = JasperConfig
         @JvmField
         val LOGGER: Logger = LogManager.getLogger("Jasper Logger")!!
-        val IS_UNSTABLE = false
+        val IS_UNSTABLE = true
         val hudPlacement: JasperConfigBlend = JasperConfigBlend()
         var mc = Minecraft.getMinecraft()
         var guiScreen: GuiScreen? = null
         const val MODID = "jasper"
-        const val VERSION = "BETA-0.55"
+        const val VERSION = "BETA-0.5"
     }
 
     @Mod.EventHandler
     fun init(event: FMLInitializationEvent) {
+        if (SkyUtils.preparedupdate) {
+            GuiUtil.open(UpdateFoundGui(MinecraftHook.updateVersion))
+        }
         BlendingMC.getInstance().fmlinitialize()
         config.init()
 

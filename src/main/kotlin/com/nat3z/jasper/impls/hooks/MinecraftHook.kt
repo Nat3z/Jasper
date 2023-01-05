@@ -20,7 +20,8 @@ import javax.swing.WindowConstants
 
 object MinecraftHook {
     private var updatePreperations = arrayOfNulls<Any>(5)
-
+    var updateVersion = ""
+    var updateMarkdown = ""
     fun checkUpdates(ci: CallbackInfo) {
         val viciousFolder = File(".\\vicious\\")
         if (!viciousFolder.exists()) {
@@ -76,6 +77,8 @@ object MinecraftHook {
 
                     }
                     SkyUtils.preparedupdate = true
+                    updateMarkdown = res.asJsonArray()[0].asJsonObject["body"].asString
+                    updateVersion = res.asJsonArray().get(0).asJsonObject["tag_name"].asString
                     updatePreperations = arrayOf<Any?>("https://api.github.com/repos/Nat3z/Jasper/releases", downloadURL, finalModsFolder, updateAs, updateAs, hashID)
                 }
             } else if (res.asJsonArray().size() > 1 && JasperMod.VERSION != res.asJsonArray().get(1).getAsJsonObject().get("tag_name").getAsString() && res.asJsonArray().get(1).getAsJsonObject().get("prerelease").asBoolean) {
@@ -85,6 +88,14 @@ object MinecraftHook {
                     val downloadURL = res1.asJsonArray().get(1).getAsJsonObject().get("assets").getAsJsonArray().get(0).getAsJsonObject().get("browser_download_url").getAsString()
                     JasperMod.LOGGER.info("Prepared update for Jasper.")
                     var updateAs = ""
+                    var hashID: String = ""
+                    val body = res1.asJsonArray().get(0).getAsJsonObject().get("body").getAsString()
+
+                    if (body.contains("**SHA-256 Hash:** `")) {
+                        JasperMod.LOGGER.info(body.split("**SHA-256 Hash:** `"))
+                        hashID =
+                            body.split("Hash:** `")[1].split("`")[0]
+                    }
                     /* for glass mod implementation */
                     for (file in finalModsFolder.listFiles()!!) {
                         if (file.name.startsWith("Jasper")) {
@@ -94,7 +105,9 @@ object MinecraftHook {
 
                     }
                     SkyUtils.preparedupdate = true
-                    updatePreperations = arrayOf<Any?>("https://api.github.com/repos/Nat3z/Jasper/releases", downloadURL, finalModsFolder, updateAs, updateAs)
+                    updateMarkdown = res.asJsonArray()[1].asJsonObject["body"].asString
+                    updateVersion = res.asJsonArray().get(1).asJsonObject["tag_name"].asString
+                    updatePreperations = arrayOf<Any?>("https://api.github.com/repos/Nat3z/Jasper/releases", downloadURL, finalModsFolder, updateAs, updateAs, hashID)
                 }
             } else {
                 val versionType = File(SkyUtils.generalFolder.getAbsolutePath() + "\\versionType.txt")
@@ -152,7 +165,9 @@ object MinecraftHook {
                 JasperMod.LOGGER.info("User is on the latest version of Jasper.")
             }
         }
+    }
 
+    fun startUpdate() {
         if (SkyUtils.preparedupdate) {
             Display.destroy()
             JasperMod.LOGGER.info("Starting Jasper update...")

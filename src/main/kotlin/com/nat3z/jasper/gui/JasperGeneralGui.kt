@@ -34,9 +34,9 @@ class JasperGeneralGui : WindowScreen(ElementaVersion.V2, newGuiScale = Essentia
         }
 
         GeneralButton("Edit Gui Locations").childOf(window).constrain {
-            x = basicXConstraint { (window.getWidth() - this.getWidth()) - 3 }
-            y = basicYConstraint { window.getHeight() - this.getHeight() - 20 }
-            width = 200.pixels()
+            x = basicXConstraint { (window.getWidth() - this.getWidth()) }
+            y = basicYConstraint { window.getHeight() - this.getHeight() - 5 }
+            width = 100.pixels()
             height = 20.pixels()
         }.onMouseClick {
             JasperMod.guiScreen = BlendingHUDEditor(JasperMod.hudPlacement)
