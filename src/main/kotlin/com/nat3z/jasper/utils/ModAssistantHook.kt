@@ -187,7 +187,7 @@ object ModAssistantHook {
                         val suc = AtomicBoolean(false)
 
                         val frame = maker.pack()
-                        maker.addText("A pre-release update for $filename is available.", 10, 10, 11, false)
+                        maker.addText("The update for $filename is a pre-release.", 10, 10, 11, false)
                         maker.addText("Would you like to download this update?", 40, 30, 15, false)
 
                         val skipUpdate = maker.addButton("Skip", 50, 70, 100, ActionListener { e ->

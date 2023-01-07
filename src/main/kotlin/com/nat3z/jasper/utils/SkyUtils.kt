@@ -11,6 +11,7 @@ import net.minecraft.util.StringUtils
 import java.io.File
 import java.util.stream.Collectors
 
+
 object SkyUtils {
     val mc = Minecraft.getMinecraft()
     var preparedupdate = false
@@ -69,6 +70,8 @@ object SkyUtils {
 
         return cleaned.toString()
     }
+
+    var actionBar = ""
 
     val scoreboardLines: List<String>
         get() {
