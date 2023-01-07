@@ -37,7 +37,7 @@ object JasperConfig : Vigilant(
 
     @Property(
         name = "Grandma Wolf Timer",
-        description = "A timer for your Grandma Wolf combo.",
+        description = "A timer for your Grandma Wolf combo. Works best while in dungeons.",
         type = PropertyType.SWITCH,
         category = "General",
         subcategory = "Skyblock",
@@ -83,6 +83,5 @@ object JasperConfig : Vigilant(
     }
     fun init() {
         initialize()
-        markDirty()
     }
 }

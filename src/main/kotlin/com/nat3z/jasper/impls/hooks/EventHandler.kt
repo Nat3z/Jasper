@@ -3,6 +3,8 @@ package com.nat3z.jasper.impls.hooks
 import com.nat3z.jasper.impls.GrandmaWolf
 import com.nat3z.jasper.impls.reparty.SpecificReparty
 import com.nat3z.jasper.utils.SkyUtils
+import net.minecraft.client.Minecraft
+import net.minecraftforge.client.GuiIngameForge
 import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.RenderGameOverlayEvent
 import net.minecraftforge.event.world.WorldEvent
@@ -14,7 +16,7 @@ class EventHandler {
     @SubscribeEvent
     fun onChat(event: ClientChatReceivedEvent) {
         SpecificReparty.INSTANCE.chat(event)
-
+        GrandmaWolf.INSTANCE.chat(event)
         if (event.type.toInt() === 2) {
             SkyUtils.actionBar = event.message.unformattedText
         }
@@ -29,7 +31,10 @@ class EventHandler {
 
     @SubscribeEvent
     fun render(event: RenderGameOverlayEvent.Post) {
-        GrandmaWolf.INSTANCE.render()
+        if (Minecraft.getMinecraft().ingameGUI !is GuiIngameForge) return
+        if (event.type == RenderGameOverlayEvent.ElementType.EXPERIENCE || event.type == RenderGameOverlayEvent.ElementType.JUMPBAR) {
+            GrandmaWolf.INSTANCE.render()
+        }
     }
 
     var firstJoin = true

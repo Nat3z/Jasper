@@ -14,8 +14,8 @@ apply(plugin = "com.github.johnrengelman.shadow")
 
 group = "com.nat3z.jasper"
 version = "1.0.0"
-//var mcDirectory = "${System.getenv("APPDATA")}/.minecraft/mods/"
-var mcDirectory = "${System.getenv("APPDATA")}/PrismLauncher/instances/1.8.9 [Test Forge]/.minecraft/mods"
+var mcDirectory = "${System.getenv("APPDATA")}/.minecraft/mods/"
+//var mcDirectory = "${System.getenv("APPDATA")}/PrismLauncher/instances/1.8.9 [Test Forge]/.minecraft/mods"
 
 // Toolchains:
 java {
